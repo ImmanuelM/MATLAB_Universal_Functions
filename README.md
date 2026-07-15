@@ -22,10 +22,15 @@ addpath(genpath('MATLAB_Universal_Functions'));
 
 Then call any function directly, e.g. `acfval = acf(x, 20);`.
 
+Using `genpath` is important: the third-party dependencies live in the
+`third_party/` sub-folder, and functions such as `pacf` (needs `acf`),
+`QR_algorithm*` / `rrqr2` (need `rrqr`), and `costFunctionReg` (needs `sigmoid`)
+will only resolve once that sub-folder is on the path.
+
 > **Note:** The rank-revealing QR routines (`QR_algorithm*`, `rrqr2`) depend on a
-> compiled MEX gateway (`rrqrGate.mexa64`, Linux/x86-64). On other platforms this
-> gateway must be recompiled from the original RRQR toolbox before those routines
-> will run.
+> compiled MEX gateway (`third_party/rrqrGate.mexa64`, Linux/x86-64). On other
+> platforms this gateway must be recompiled from the original RRQR toolbox before
+> those routines will run.
 
 ---
 
@@ -141,18 +146,19 @@ and a written report (`Linear_programming_Report _Immanuel Manohar.pdf` / `.docx
 
 ## Third-party files
 
-The following files were **not** written by Immanuel Manohar. Each carries an
-attribution/license comment at the top of the file and remains governed by its
-own license (not the repository license):
+The following files were **not** written by Immanuel Manohar. They live in the
+[`third_party/`](third_party/) folder, each carries an attribution/license
+comment at the top of the file, and each remains governed by its own license
+(not the repository license):
 
 | File(s) | Original author | License |
 |---------|-----------------|---------|
-| `aboxplot.m`, `colorgrad.m`, `quartile.m` | Alex Bikfalvi | GNU GPL v3 |
-| `histwc.m`, `histwcv.m` | Mehmet Süzen | BSD |
-| `acf.m`, `pacf.m` | Arun K. Tangirala | as stated in file |
-| `ICA.m` | Ruck Thawonmas (Kochi Univ. of Technology) | as stated in file |
-| `sigmoid.m`, `costFunctionReg.m` | Coursera Machine Learning course template (completed by the author) | as stated in file |
-| `rrqr.m` + `rrqrGate.mexa64` | RRQR MEX toolbox gateway | as stated in file |
+| `third_party/aboxplot.m`, `third_party/colorgrad.m`, `third_party/quartile.m` | Alex Bikfalvi | GNU GPL v3 |
+| `third_party/histwc.m`, `third_party/histwcv.m` | Mehmet Süzen | BSD |
+| `third_party/acf.m`, `third_party/pacf.m` | Arun K. Tangirala | as stated in file |
+| `third_party/ICA.m` | Ruck Thawonmas (Kochi Univ. of Technology) | as stated in file |
+| `third_party/sigmoid.m`, `third_party/costFunctionReg.m` | Coursera Machine Learning course template (completed by the author) | as stated in file |
+| `third_party/rrqr.m` + `third_party/rrqrGate.mexa64` | RRQR MEX toolbox gateway | as stated in file |
 
 All other files in this repository are the original work of the author.
 
